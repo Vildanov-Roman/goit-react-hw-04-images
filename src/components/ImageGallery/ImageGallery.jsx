@@ -41,6 +41,7 @@ export class ImageGallery extends Component {
     fetchPhotos(this.props.searchQuery, this.state.page).then(response =>
       this.setState(prevState => ({
         images: [...prevState.images, ...response.hits],
+        
         isLoading: false,
       }))
     );
@@ -58,7 +59,7 @@ export class ImageGallery extends Component {
             })}
           </Gallery>
         )}
-        {images && <Button children={'Load more'} onClick={this.loadMore} />}
+        {images && (<Button children={'Load more'} onClick={this.loadMore} />)}
       </>
     );
   }
