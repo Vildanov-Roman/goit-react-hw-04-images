@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export class ImageGallery extends Component {
   state = {
     images: null,
-    page: 1,
+    page: 2,
     isLoading: false,
     totalHits: null,
   };
@@ -42,8 +42,7 @@ export class ImageGallery extends Component {
 
     fetchPhotos(this.props.searchQuery, this.state.page).then(response =>
       this.setState(prevState => ({
-        images: [...prevState.images, ...response.hits],
-        
+        images: [...prevState.images, ...response.hits],        
         isLoading: false,
       }))
     );
