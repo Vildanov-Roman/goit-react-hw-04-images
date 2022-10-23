@@ -10,8 +10,9 @@ import PropTypes from 'prop-types';
 export class ImageGallery extends Component {
   state = {
     images: null,
-    page: 2,
+    page: 1,
     isLoading: false,
+    totalHits: null,
   };
 
   componentDidUpdate(prevProps, _) {
@@ -21,11 +22,12 @@ export class ImageGallery extends Component {
     ) {
       this.setState({ isLoading: true });
       fetchPhotos(this.props.searchQuery).then(response => {
+        
         if (response.hits.length === 0) {
           Notify.failure('Wrong request');
           this.setState({ isLoading: false });
         } else {
-          this.setState({ images: [...response.hits], isLoading: false });
+          this.setState({ images: [...response.hits], isLoading: false, totalHits: response.totalHits });
         }
       });
     }
@@ -59,7 +61,7 @@ export class ImageGallery extends Component {
             })}
           </Gallery>
         )}
-        {images && (<Button children={'Load more'} onClick={this.loadMore} />)}
+        {images && images.length !== this.state.totalHits && (<Button children={'Load more'} onClick={this.loadMore} />)}
       </>
     );
   }
