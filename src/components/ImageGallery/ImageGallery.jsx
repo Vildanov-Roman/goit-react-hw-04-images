@@ -11,8 +11,6 @@ export const ImageGallery = ({ searchQuery }) => {
   const [images, setImages] = useState(null)
   const [page, setPage] = useState(2)
   const [isLoading, setIsLoading] = useState(false)
-  // const [totalHits, setTotalHits] = useState(null)
-
 
   useEffect(() => {
     if(searchQuery === '') {
@@ -36,13 +34,11 @@ export const ImageGallery = ({ searchQuery }) => {
   useEffect(() => {
     setPage(1);
   }, [searchQuery]);
-
+  
   const loadMore = () => {
     setPage(prevState => prevState.page + 1);
-  };
-
+  };  
   
-    
   return (
     <>
       {isLoading && <Loader />}
