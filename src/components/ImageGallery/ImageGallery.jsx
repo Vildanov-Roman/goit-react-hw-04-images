@@ -8,37 +8,38 @@ import { Notify } from 'notiflix';
 import PropTypes from 'prop-types';
 
 export const ImageGallery = ({ searchQuery }) => {
-  const [images, setImages] = useState(null)
-  const [page, setPage] = useState(2)
-  const [isLoading, setIsLoading] = useState(false)
+  const [images, setImages] = useState(null);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if(searchQuery === '') {
-      return
+    if (searchQuery === '') {
+      return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
     fetchPhotos(searchQuery, page).then(response => {
-      if(response.hits.length === 0) {
-        Notify.failure('Wrong request')
-        setIsLoading(false)
-      } else if(page > 1) {
-          setImages(prevImages => [...prevImages, ...response.hits])
+      if (response.hits.length === 0) {
+        Notify.failure('Wrong request');
+        setIsLoading(false);
+      } else if (page > 1) {        
+        setImages(prevImages => [...prevImages, ...response.hits])
+      } else {
+        setImages(response.hits);
       }
-      setImages(response.hits);        
-      setIsLoading(false)
-        
       
-    })
-  }, [page, searchQuery])
+      setIsLoading(false);
+      
+    });
+  }, [page, searchQuery]);
 
   useEffect(() => {
     setPage(1);
   }, [searchQuery]);
-  
+
   const loadMore = () => {
-    setPage(prevState => prevState.page + 1);
-  };  
-  
+    setPage(prevPage => prevPage + 1);
+  };
+
   return (
     <>
       {isLoading && <Loader />}
@@ -49,10 +50,10 @@ export const ImageGallery = ({ searchQuery }) => {
           })}
         </Gallery>
       )}
-      {images && (<Button children={'Load more'} onClick={loadMore} />)}
+      {images && <Button children={'Load more'} onClick={loadMore} />}
     </>
   );
-}
+};
 
 
 ImageGallery.propTypes = {
