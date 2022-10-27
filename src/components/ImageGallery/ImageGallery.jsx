@@ -11,7 +11,7 @@ export const ImageGallery = ({ searchQuery }) => {
   const [images, setImages] = useState(null);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalHits, setTotalHits] = useState(null)
+  // const [totalHits, setTotalHits] = useState(null)
 
   useEffect(() => {
     if (searchQuery === '') {
