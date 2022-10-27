@@ -19,7 +19,7 @@ export const ImageGallery = ({ searchQuery }) => {
     setIsLoading(true);
     fetchPhotos(searchQuery, page).then(response => {
       if (response.hits.length === 0) {
-        Notify.failure('Wrong request');
+        Notify.failure('Wrong request or our library doesn`t have this image');
         setIsLoading(false);
       } else if (page > 1) {        
         setImages(prevImages => [...prevImages, ...response.hits])
