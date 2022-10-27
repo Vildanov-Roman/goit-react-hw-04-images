@@ -11,7 +11,7 @@ export const ImageGallery = ({ searchQuery }) => {
   const [images, setImages] = useState(null);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  // const [totalHits, setTotalHits] = useState(null)
+  const [totalHits, setTotalHits] = useState(null)
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -26,6 +26,7 @@ export const ImageGallery = ({ searchQuery }) => {
         setImages(prevImages => [...prevImages, ...response.hits])
       } else {
         setImages(response.hits);
+        setTotalHits(response.totalHits)
       }      
       setIsLoading(false);
       
@@ -50,7 +51,7 @@ export const ImageGallery = ({ searchQuery }) => {
           })}
         </Gallery>
       )}
-      {images && <Button children={'Load more'} onClick={loadMore} />}
+      {totalHits >= 12 * page && <Button children={'Load more'} onClick={loadMore} />}
     </>
   );
 };
