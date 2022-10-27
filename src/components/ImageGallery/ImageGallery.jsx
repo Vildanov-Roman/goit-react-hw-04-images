@@ -14,6 +14,7 @@ export const ImageGallery = ({ searchQuery }) => {
 
   useEffect(() => {
     if (searchQuery === '') {
+      Notify.info('Please, fill in the input field');
       return;
     }
     setIsLoading(true);
@@ -25,8 +26,7 @@ export const ImageGallery = ({ searchQuery }) => {
         setImages(prevImages => [...prevImages, ...response.hits])
       } else {
         setImages(response.hits);
-      }
-      
+      }      
       setIsLoading(false);
       
     });
