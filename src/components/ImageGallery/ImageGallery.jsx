@@ -14,7 +14,6 @@ export const ImageGallery = ({ searchQuery }) => {
 
   useEffect(() => {
     if (searchQuery === '') {
-      Notify.info('Please, fill in the input field');
       return;
     }
     setIsLoading(true);
